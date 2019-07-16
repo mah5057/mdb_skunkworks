@@ -44,6 +44,7 @@ def hello_world():
                 "_id": str(ObjectId()),
                 "severity": severities[random.randint(0, 4)],
                 "system": systems[random.randint(0,14)],
-                "details": (really_long_text_string % random.randint(1000,9999))[:random.randint(30,400)]
+                "details": (really_long_text_string % random.randint(1000,9999))[:random.randint(30,400)],
+                "host": "hoststring-%s" % random.randint(100,999)
             })
     return jsonify(return_objects)

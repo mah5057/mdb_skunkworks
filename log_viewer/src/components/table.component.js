@@ -10,12 +10,13 @@ class Table extends Component {
 
     renderTableData() {
         return this.props.data.map((r) => {
-            const { _id, date, severity, system, details } = r //destructuring
+            const { _id, date, severity, system, host, details } = r //destructuring
             return (
                 <tr key={_id}>
                 <td>{date}</td>
                 <td>{severity}</td>
                 <td>{system}</td>
+                <td>{host}</td>
                 <td>{details}</td>
                 </tr>
         )
@@ -27,6 +28,7 @@ class Table extends Component {
                 <th>date</th>
                 <th>severity</th>
                 <th>system</th>
+                <th>host</th>
                 <th>details</th>
                </tr>
     }
