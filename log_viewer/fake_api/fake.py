@@ -21,7 +21,7 @@ def filter_return_objects(return_objects, query, severity, component):
 @app.route('/')
 @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def hello_world():
-    query =  request.args.get('query')
+    query =  request.args.get('fts-query')
     severity = request.args.get('severity')
     component = request.args.get('component')
     print("Query: %s\nSeverity: %s\nSystem: %s" % (query, severity, component))
@@ -62,6 +62,6 @@ def hello_world():
                 "host": "hoststring-%s" % random.randint(100,999)
             })
 
-    return_objects = filter_return_objects(return_objects, query, severity, component)
+    return_objects = {'results': filter_return_objects(return_objects, query, severity, component)}
 
     return jsonify(return_objects)

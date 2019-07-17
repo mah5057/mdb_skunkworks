@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Table from './table.component';
 
-const API_URL = 'http://a95d37b7.ngrok.io/logs'
+// const API_URL = 'http://a95d37b7.ngrok.io/logs'
+const API_URL = 'http://localhost:5000/'
 
 export default class SearchPage extends React.Component {
 
@@ -30,13 +31,16 @@ export default class SearchPage extends React.Component {
 
     doSearch = () => {
         this.getInfo();
-    };
-
-    handleSearchStringInputChange = () => {
         this.setState({
             query: this.search.value
         })
     };
+
+    // handleSearchStringInputChange = () => {
+    //     this.setState({
+    //         query: this.search.value
+    //     })
+    // };
 
     handleSeverityInputChange = (event) => {
         this.setState({
@@ -53,7 +57,7 @@ export default class SearchPage extends React.Component {
     render() {
         return (
             <form>
-                <input placeholder="Search for..." ref={input => this.search = input} onChange={this.handleSearchStringInputChange}/>
+                <input placeholder="Search for..." ref={input => this.search = input}/>
                 <select onChange={this.handleSeverityInputChange}>
                     <option value='' defaultValue=''>All Severity Levels</option>
                     <option value="I">I</option>

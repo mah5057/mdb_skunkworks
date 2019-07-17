@@ -10,13 +10,15 @@ class Table extends Component {
     }
 
     renderTableData() {
+
         return this.props.data.results.map((r, index) => {
-            const { _id, date, severity, component, hostname, details } = r //destructuring
+            const { date, severity, component, hostname, details } = r //destructuring
             let detailsHighlighted = <Highlighter
                                         highlightClassName="YourHighlightClass"
                                         searchWords={this.props.data.query.split(" ")}
                                         autoEscape={true}
                                         textToHighlight={details} />;
+
             return (
                 <tr key={index}>
                 <td>{date}</td>
