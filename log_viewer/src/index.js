@@ -9,7 +9,7 @@ import SearchBar from './components/searchBar.component';
 const routing = (
     <Router>
         <div>
-            <Route exact path="/" component={App}/>
+            <Route exact path="/" component={SearchBar}/>
             <Route path="/search" component={SearchBar}/>
         </div>
     </Router>
