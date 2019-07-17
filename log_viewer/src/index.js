@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
-import SearchPage from './components/search.component';
+import SearchBar from './components/searchBar.component';
 
 const routing = (
     <Router>
         <div>
             <Route exact path="/" component={App}/>
-            <Route path="/search" component={SearchPage}/>
+            <Route path="/search" component={SearchBar}/>
         </div>
     </Router>
 )

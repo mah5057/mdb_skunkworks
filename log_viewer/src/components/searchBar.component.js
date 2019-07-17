@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import Table from './table.component';
 
-// const API_URL = 'http://a95d37b7.ngrok.io/logs'
-const API_URL = 'http://localhost:5000/'
+const API_URL = 'http://2ca912fc.ngrok.io/logs'
+// const API_URL = 'http://localhost:5000/'
 
-export default class SearchPage extends React.Component {
+export default class SearchBar extends React.Component {
 
     state = {
         query: '',
@@ -20,7 +20,7 @@ export default class SearchPage extends React.Component {
         this.doSearch();
     }
 
-    getInfo() {
+    fetchData() {
         let params = {
             params: {
                 'fts-query': this.state.query,
@@ -40,10 +40,10 @@ export default class SearchPage extends React.Component {
     };
 
     doSearch = () => {
-        this.getInfo();
         this.setState({
             query: this.search.value
         })
+        this.fetchData();
     };
 
     getHostnameOptions = () => {
@@ -54,22 +54,31 @@ export default class SearchPage extends React.Component {
         return names;
     }
 
+    handleSearchQueryInputChange = (event) => {
+        this.setState({
+            query: event.target.value
+        })
+    }
+
     handleSeverityInputChange = (event) => {
         this.setState({
             severity: event.target.value
         })
+        // this.fetchData();
     };
 
     handleComponentInputChange = (event) => {
         this.setState({
             component: event.target.value
         })
+        // this.fetchData();
     };
 
     handleHostnameInputChange = (event) => {
         this.setState({
             hostname: event.target.value
         })
+        // this.fetchData();
     }
 
     render() {
@@ -80,7 +89,7 @@ export default class SearchPage extends React.Component {
                         Search Terms:
                     </div>
                     <form>
-                        <input size="40" type="text" placeholder="" ref={input => this.search = input}/>
+                        <input size="40" type="text" placeholder="" ref={input => this.search = input} onChange={this.handleSearchQueryInputChange}/>
                         <div className="searchLabel">
                             Severity Level:
                         </div>
