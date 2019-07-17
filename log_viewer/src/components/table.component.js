@@ -1,36 +1,42 @@
 import React, { Component } from 'react'
+import Highlighter from "react-highlight-words";
 
 class Table extends Component {
     constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = { //state is by default an object
+        super(props)
+        this.state = {
             data: props.data
         }
     }
 
     renderTableData() {
-        return this.props.data.map((r) => {
-            const { _id, date, severity, system, host, details } = r //destructuring
+        return this.props.data.results.map((r, index) => {
+            const { _id, date, severity, component, hostname, details } = r //destructuring
+            let detailsHighlighted = <Highlighter
+                                        highlightClassName="YourHighlightClass"
+                                        searchWords={this.props.data.query.split(" ")}
+                                        autoEscape={true}
+                                        textToHighlight={details} />;
             return (
-                <tr key={_id}>
+                <tr key={index}>
                 <td>{date}</td>
                 <td>{severity}</td>
-                <td>{system}</td>
-                <td>{host}</td>
-                <td>{details}</td>
+                <td>{component}</td>
+                <td>{hostname}</td>
+                <td>{detailsHighlighted}</td>
                 </tr>
         )
         })
     }
 
     renderTableHeader() {
-        return <tr>
+        return (<tr>
                 <th>date</th>
                 <th>severity</th>
-                <th>system</th>
+                <th>component</th>
                 <th>host</th>
                 <th>details</th>
-               </tr>
+               </tr>)
     }
 
     render() {
@@ -43,10 +49,7 @@ class Table extends Component {
         return (
             <div>
                 <table id='data'>
-                    <tbody>
-                        {tableHeader}
-                        {this.renderTableData()}
-                    </tbody>
+                    <tbody>{tableHeader}{this.renderTableData()}</tbody>
                 </table>
             </div>
     )

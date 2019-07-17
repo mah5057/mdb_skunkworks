@@ -2,25 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import Table from './table.component';
 
-const { API_KEY } = process.env
-const API_URL = 'http://localhost:5000/'
+const API_URL = 'http://a95d37b7.ngrok.io/logs'
 
 export default class SearchPage extends React.Component {
 
     state = {
         query: '',
         severity: '',
-        system: '',
+        component: '',
         results: []
     };
 
     getInfo = () => {
-        console.log("Search for: " + this.state.query + "\nSeverity: " + this.state.severity + "\nSystem: " + this.state.system)
-        // can use this.search.query here
-        axios.get(`${API_URL}`)
+        axios.get(`${API_URL}`, {
+                params: {
+                    'fts-query': this.state.query,
+                    severity: this.state.severity,
+                    component: this.state.component
+                }
+            })
             .then(({ data }) => {
                 this.setState({
-                    results: data
+                    results: data.results
                 })
             })
     };
@@ -41,9 +44,9 @@ export default class SearchPage extends React.Component {
         })
     };
 
-    handleSystemInputChange = (event) => {
+    handleComponentInputChange = (event) => {
         this.setState({
-            system: event.target.value
+            component: event.target.value
         })
     };
 
@@ -52,15 +55,15 @@ export default class SearchPage extends React.Component {
             <form>
                 <input placeholder="Search for..." ref={input => this.search = input} onChange={this.handleSearchStringInputChange}/>
                 <select onChange={this.handleSeverityInputChange}>
-                    <option defaultValue="">All Severity Levels</option>
+                    <option value='' defaultValue=''>All Severity Levels</option>
                     <option value="I">I</option>
                     <option value="E">E</option>
                     <option value="F">F</option>
                     <option value="W">W</option>
                     <option value="D">D</option>
                 </select>
-                <select onChange={this.handleSystemInputChange}>
-                    <option defaultValue="">All Components</option>
+                <select onChange={this.handleComponentInputChange}>
+                    <option value='' defaultValue=''>All Components</option>
                     <option value="QUERY">QUERY</option>
                     <option value="ACCESS">ACCESS</option>
                     <option value="COMMAND">COMMAND</option>
@@ -80,7 +83,7 @@ export default class SearchPage extends React.Component {
                     <option value="INDEX">INDEX</option>
                 </select>
                 <button type="button" onClick={this.doSearch.bind(this)}>Search</button>
-                <Table data={this.state.results}/>
+                <Table data={this.state}/>
             </form>
         );
     }
