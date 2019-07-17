@@ -4,9 +4,6 @@ import Highlighter from "react-highlight-words";
 class Table extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            data: props.data
-        }
     }
 
     renderTableData() {
@@ -29,6 +26,14 @@ class Table extends Component {
                 </tr>
         )
         })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // don't re-render until results change
+        if(this.props.data.results === nextProps.data.results){
+            return false;
+        }
+        return true;
     }
 
     renderTableHeader() {

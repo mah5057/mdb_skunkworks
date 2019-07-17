@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Table from './table.component';
 
-const API_URL = 'http://2ca912fc.ngrok.io/logs'
-// const API_URL = 'http://localhost:5000/'
+// const API_URL = 'http://2ca912fc.ngrok.io/logs'
+const API_URL = 'http://localhost:5000/'
 
 export default class SearchBar extends React.Component {
 
@@ -40,9 +40,6 @@ export default class SearchBar extends React.Component {
     };
 
     doSearch = () => {
-        this.setState({
-            query: this.search.value
-        })
         this.fetchData();
     };
 
