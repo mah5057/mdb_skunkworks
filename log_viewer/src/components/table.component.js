@@ -61,7 +61,7 @@ class Table extends Component {
                         </table>
                     </div>
                     <div>
-                        {this.props.data.results.length} results...
+                        {this.props.data.results.length} result(s)...
                     </div>
                 </div>
                 )

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import logo from '../images/logo.png'
 import Table from './table.component';
 
 // const API_URL = 'http://2ca912fc.ngrok.io/logs'
@@ -82,6 +83,9 @@ export default class SearchBar extends React.Component {
         return (
             <div>
                 <div className="searchBar">
+                    <div className="logo">
+                        <img src={logo}/>
+                    </div>
                     <div className="searchLabel">
                         Search Terms:
                     </div>
