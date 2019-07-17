@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Highlighter from "react-highlight-words";
 
 class Table extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             data: props.data
         }
@@ -12,7 +12,7 @@ class Table extends Component {
     renderTableData() {
 
         return this.props.data.results.map((r, index) => {
-            const { date, severity, component, hostname, details } = r //destructuring
+            const { date, severity, component, hostname, details } = r;
             let detailsHighlighted = <Highlighter
                                         highlightClassName="YourHighlightClass"
                                         searchWords={this.props.data.query.split(" ")}
@@ -21,11 +21,11 @@ class Table extends Component {
 
             return (
                 <tr key={index}>
-                <td>{date}</td>
-                <td>{severity}</td>
-                <td>{component}</td>
-                <td>{hostname}</td>
-                <td>{detailsHighlighted}</td>
+                    <td>{date}</td>
+                    <td>{severity}</td>
+                    <td>{component}</td>
+                    <td>{hostname}</td>
+                    <td>{detailsHighlighted}</td>
                 </tr>
         )
         })
@@ -43,18 +43,23 @@ class Table extends Component {
 
     render() {
         let tableHeader = '';
-        if(this.renderTableData().length != 0) {
+        if(this.renderTableData().length !== 0) {
             tableHeader = this.renderTableHeader();
         } else {
             tableHeader = '';
         }
         return (
-            <div>
-                <table id='data'>
-                    <tbody>{tableHeader}{this.renderTableData()}</tbody>
-                </table>
-            </div>
-    )
+                <div>
+                    <div>
+                        <table id='data'>
+                            <tbody>{tableHeader}{this.renderTableData()}</tbody>
+                        </table>
+                    </div>
+                    <div>
+                        {this.props.data.results.length} results...
+                    </div>
+                </div>
+                )
     }
 }
 

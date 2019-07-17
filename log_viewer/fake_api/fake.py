@@ -9,11 +9,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:port"}})
 
-def filter_return_objects(return_objects, query, severity, component):
+def filter_return_objects(return_objects, query, severity, component, hostname):
     if severity:
         return_objects = list(filter(lambda x: x['severity'] == severity, return_objects))
     if component:
         return_objects = list(filter(lambda x: x['component'] == component, return_objects))
+    if hostname:
+        return_objects = list(filter(lambda x: x['hostname'] == hostname, return_objects))
     if query:
         return_objects = list(filter(lambda x: query in x['details'], return_objects))
     return return_objects
@@ -24,7 +26,8 @@ def hello_world():
     query =  request.args.get('fts-query')
     severity = request.args.get('severity')
     component = request.args.get('component')
-    print("Query: %s\nSeverity: %s\nSystem: %s" % (query, severity, component))
+    hostname = request.args.get('hostname')
+    print("Query: %s\nSeverity: %s\nSystem: %s\nHostname: %s" % (query, severity, component, hostname))
 
     really_long_text_string = "[conn%s] Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
                               "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque " \
@@ -59,9 +62,15 @@ def hello_world():
                 "severity": severities[random.randint(0, 4)],
                 "component": components[random.randint(0,14)],
                 "details": (really_long_text_string % random.randint(1000,9999))[:random.randint(30,400)],
-                "host": "hoststring-%s" % random.randint(100,999)
+                "hostname": "hoststring-%s" % random.randint(990,995)
             })
 
-    return_objects = {'results': filter_return_objects(return_objects, query, severity, component)}
+    return_objects = {'results': filter_return_objects(return_objects, query, severity, component, hostname)}
+    return_objects['hostnames'] = ['hoststring-990',
+                                   'hoststring-991',
+                                   'hoststring-992',
+                                   'hoststring-993',
+                                   'hoststring-994',
+                                   'hoststring-995']
 
     return jsonify(return_objects)
